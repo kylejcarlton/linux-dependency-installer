@@ -28,7 +28,7 @@ elif command -v xbps-install &> /dev/null; then
 elif command -v pkg &> /dev/null; then
   PACKAGE_MANAGER="pkg"
 else
-  echo "Unsupported package manager. Exiting..."
+  echo "No supported package manager found. Exiting..."
   exit 1
 fi
 
