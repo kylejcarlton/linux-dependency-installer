@@ -142,4 +142,4 @@ else
   esac
 fi
 
-echo "Package installation completed."
+echo "Package installation script done."
