@@ -19,6 +19,14 @@ elif command -v pacman &> /dev/null; then
   PACKAGE_MANAGER="pacman"
 elif command -v apk &> /dev/null; then
   PACKAGE_MANAGER="apk"
+elif command -v eopkg &> /dev/null; then
+  PACKAGE_MANAGER="eopkg"
+elif command -v emerge &> /dev/null; then
+  PACKAGE_MANAGER="emerge"
+elif command -v xbps-install &> /dev/null; then
+  PACKAGE_MANAGER="xbps-install"
+elif command -v pkg &> /dev/null; then
+  PACKAGE_MANAGER="pkg"
 else
   echo "Unsupported package manager. Exiting..."
   exit 1
@@ -62,6 +70,34 @@ install_packages_with_apk() {
   apk add --no-cache "$@"
 }
 
+# Function to install packages using eopkg
+install_packages_with_eopkg() {
+  echo "Installing packages with eopkg..."
+  eopkg update-repo
+  eopkg -y install "$@"
+}
+
+# Function to install packages using emerge
+install_packages_with_emerge() {
+  echo "Installing packages with emerge..."
+  emerge --sync
+  emerge -a "$@"
+}
+
+# Function to install packages using xbps-install
+install_packages_with_xbps() {
+  echo "Installing packages with xbps-install..."
+  xbps-install -Syu
+  xbps-install -y "$@"
+}
+
+# Function to install packages using pkg
+install_packages_with_pkg() {
+  echo "Installing packages with pkg..."
+  pkg update
+  pkg install -y "$@"
+}
+
 # Main script
 if [[ $# -eq 0 ]]; then
   echo "No packages specified. Exiting..."
@@ -86,6 +122,18 @@ else
       ;;
     "apk")
       install_packages_with_apk "$@"
+      ;;
+      "eopkg")
+      install_packages_with_eopkg "$@"
+      ;;
+      "emerge")
+      install_packages_with_emerge "$@"
+      ;;
+      "xbps-install")
+      install_packages_with_xbps "$@"
+      ;;
+      "pkg")
+      install_packages_with_pkg "$@"
       ;;
     *)
       echo "Unsupported package manager. Exiting..."
