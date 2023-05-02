@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#Supported Package Managers:
+# apt-get, yum, dnf, zypper, pacman, apk, eopkg, emerge, xbps-install, pkg
+
 # Check if the script is being run with superuser privileges
 if [[ $(id -u) != 0 ]]; then
   echo "This script needs to be run with superuser privileges."
